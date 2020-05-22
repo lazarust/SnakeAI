@@ -1,8 +1,7 @@
 import random
 from classes import *
 import classes
-import tkinter as tk
-from tkinter import messagebox
+
 
 def drawGrid(width, rows, surface):
     sqrSize = width // rows
@@ -40,17 +39,6 @@ def randomSnack(body):
     return tuple((x, y))
 
 
-def message_box(subject, content):
-    root = tk.Tk()
-    root.attributes("-topmost", True)
-    root.withdraw()
-    messagebox.showinfo(subject, content)
-    try:
-        root.destroy()
-    except:
-        pass
-
-
 def main():
     global width, rows, snake, snack
     width = 500
@@ -67,12 +55,12 @@ def main():
         snake.move()
         if snake.body[0].pos == snack.pos:
             snake.addCube()
+            pygame.display.set_caption(f'Score: {len(snake.body)}')
             snack = block(randomSnack(snake), color=(255, 0, 0))
 
         for x in range(len(snake.body)):
             if snake.body[x].pos in list(map(lambda z: z.pos, snake.body[x + 1:])):
-                print('Score: ', len(snake.body))
-                message_box('You Lost!', 'Play again...')
+                pygame.display.set_caption(f'Score: 0')
                 snake.reset((10, 10))
                 break
 
