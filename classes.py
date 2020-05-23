@@ -2,8 +2,8 @@ import pygame
 
 
 class block(object):
-    rows = 20
-    w = 500
+    rows = 40
+    w = 1000
 
     def __init__(self, start, dirnx=1, dirny=0, color=(0, 255, 0)):
         self.pos = start
@@ -32,8 +32,8 @@ class snake(object):
         self.color = color
         self.head = block(pos)
         self.body.append(self.head)
-        self.dirnx = 0
-        self.dirny = 1
+        self.dirnx = 1
+        self.dirny = 0
 
     def move(self):
         for event in pygame.event.get():
@@ -42,22 +42,22 @@ class snake(object):
 
             keys = pygame.key.get_pressed()
             for key in keys:
-                if keys[pygame.K_LEFT]:
+                if keys[pygame.K_LEFT] and self.dirnx != 1:
                     self.dirnx = -1
                     self.dirny = 0
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_RIGHT]:
+                elif keys[pygame.K_RIGHT] and self.dirnx != -1:
                     self.dirnx = 1
                     self.dirny = 0
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_UP]:
+                elif keys[pygame.K_UP] and self.dirny != 1:
                     self.dirnx = 0
                     self.dirny = -1
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
 
-                elif keys[pygame.K_DOWN]:
+                elif keys[pygame.K_DOWN] and self.dirny != -1:
                     self.dirnx = 0
                     self.dirny = 1
                     self.turns[self.head.pos[:]] = [self.dirnx, self.dirny]
@@ -91,8 +91,8 @@ class snake(object):
         self.body = []
         self.body.append(self.head)
         self.turns = {}
-        self.dirnx = 0
-        self.dirny = 1
+        self.dirnx = 1
+        self.dirny = 0
 
     def addCube(self):
         tail = self.body[-1]

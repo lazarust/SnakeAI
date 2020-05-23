@@ -3,24 +3,11 @@ from classes import *
 import classes
 
 
-def drawGrid(width, rows, surface):
-    sqrSize = width // rows
-    x = 0
-    y = 0
-
-    for row in range(rows):
-        x += sqrSize
-        y += sqrSize
-        pygame.draw.line(surface, (255, 255, 255), (x, 0), (x, width), 1)
-        pygame.draw.line(surface, (255, 255, 255), (0, y), (width, y), 1)
-
-
 def redrawWindow(surface):
     global rows, width, snake, snack
-    surface.fill((0, 0, 0))
+    surface.fill((96, 96, 96))
     snake.draw(surface)
     snack.draw(surface)
-    drawGrid(width, rows, surface)
     pygame.display.update()
 
 
@@ -41,8 +28,8 @@ def randomSnack(body):
 
 def main():
     global width, rows, snake, snack
-    width = 500
-    rows = 20
+    width = 1000
+    rows = 40
     window = pygame.display.set_mode((width, width))
     snake = classes.snake((0, 255, 0), (10,10))
     snack = classes.block(randomSnack(snake), color=(255, 0, 0))
@@ -50,8 +37,8 @@ def main():
     clock = pygame.time.Clock()
 
     while running is True:
-        pygame.time.delay(50)
-        clock.tick(10)
+        pygame.time.delay(10)
+        clock.tick(100)
         snake.move()
         if snake.body[0].pos == snack.pos:
             snake.addCube()
