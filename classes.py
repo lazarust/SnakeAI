@@ -2,7 +2,7 @@ import pygame
 
 
 class block(object):
-    rows = 40
+    rows = 30
     w = 1000
 
     def __init__(self, start, dirnx=1, dirny=0, color=(0, 255, 0)):
